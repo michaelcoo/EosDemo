@@ -1,5 +1,7 @@
 package io.plactal.eoscommander.ui.currency;
 
+import android.util.Log;
+
 import com.google.gson.JsonObject;
 
 import javax.inject.Inject;
@@ -14,6 +16,9 @@ import io.plactal.eoscommander.util.Utils;
  * Created by swapnibble on 2018-04-16.
  */
 public class CurrencyPresenter extends BasePresenter<CurrencyMvpView> {
+
+    public static final String TAG = "yangtao";
+
     @Inject
     EoscDataManager mDataManager;
 
@@ -36,6 +41,7 @@ public class CurrencyPresenter extends BasePresenter<CurrencyMvpView> {
                         if ( ! isViewAttached() ) return;
 
                         getMvpView().showLoading( false );
+                        Log.d(TAG, "get balance string: "+result);
 
                         getMvpView().showResult( result, null);
                     }

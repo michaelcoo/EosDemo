@@ -23,13 +23,20 @@
  */
 package io.plactal.eoscommander.ui.account;
 
+import android.util.Log;
+
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
+
+import org.json.JSONArray;
 
 import javax.inject.Inject;
 
 import io.plactal.eoscommander.R;
 import io.plactal.eoscommander.data.EoscDataManager;
+import io.plactal.eoscommander.data.prefs.PreferencesHelper;
+import io.plactal.eoscommander.data.remote.model.api.EosChainInfo;
 import io.plactal.eoscommander.ui.account.info.AccountInfoType;
 import io.plactal.eoscommander.ui.base.BasePresenter;
 import io.plactal.eoscommander.ui.base.RxCallbackWrapper;
@@ -42,6 +49,8 @@ import io.reactivex.Completable;
  */
 
 public class AccountMainPresenter extends BasePresenter<AccountMainMvpView> {
+
+    public static final String TAG = "yangtao";
 
     @Inject
     EoscDataManager mDataManager;
@@ -108,6 +117,8 @@ public class AccountMainPresenter extends BasePresenter<AccountMainMvpView> {
 
                         getMvpView().showLoading( false );
 
+                        Log.d(TAG, "get account string: " + Utils.prettyPrintJson( result));
+
                         showResult( AccountInfoType.REGISTRATION.getTitleId(), account, Utils.prettyPrintJson( result) );
                         //getMvpView().showAccountInfo( AccountInfoType.REGISTRATION.getTitleId(), account,  Utils.prettyPrintJson( result) );
                     }
@@ -116,7 +127,7 @@ public class AccountMainPresenter extends BasePresenter<AccountMainMvpView> {
         );
     }
 
-    private void getActions(String account, int pos, int offset ) {
+    public void getActions(String account, int pos, int offset ) {
         getMvpView().showLoading( true );
 
         addDisposable( mDataManager
@@ -130,12 +141,37 @@ public class AccountMainPresenter extends BasePresenter<AccountMainMvpView> {
 
                         getMvpView().showLoading( false );
 
-                        showResult( AccountInfoType.TRANSACTIONS.getTitleId(), account, Utils.prettyPrintJson( result) );
+                        String a = getDataFromJsonObject(result, account);
+
+                        getMvpView().showAccountInfo(AccountInfoType.TRANSACTIONS.getTitleId(), account, a, null);
+
+//                        showResult( AccountInfoType.TRANSACTIONS.getTitleId(), account, Utils.prettyPrintJson( result) );
                         //getMvpView().showAccountInfo( AccountInfoType.TRANSACTIONS.getTitleId(), account, Utils.prettyPrintJson(result ) );
                     }
 
                 })
         );
+    }
+
+    private String getDataFromJsonObject(JsonObject jsonObject, String accountName) {
+        StringBuilder stringBuilder = new StringBuilder();
+        JsonArray jaActions = jsonObject.getAsJsonArray("actions");
+        Log.d(TAG, "getDataFromJsonObject: jaActions " + jaActions.size());
+        for (int i=0; i<jaActions.size(); i++) {
+            JsonObject jo = jaActions.get(i).getAsJsonObject();
+            JsonObject joTrace = jo.getAsJsonObject("action_trace");
+            JsonObject joReceipt = joTrace.getAsJsonObject("receipt");
+            String name = joReceipt.get("receiver").getAsString();
+            Log.d(TAG, "getDataFromJsonObject: name ....." +name);
+            if (name.equals(accountName)) {
+                JsonObject joAct = joTrace.getAsJsonObject("act");
+                JsonObject joData = joAct.getAsJsonObject("data");
+                String result = joData.toString();
+                stringBuilder.append(result);
+            }
+        }
+        Log.d(TAG, "getDataFromJsonObject: stringBuilder "+ stringBuilder.toString());
+        return stringBuilder.toString();
     }
 
     private void getServents( String account ) {
@@ -158,5 +194,38 @@ public class AccountMainPresenter extends BasePresenter<AccountMainMvpView> {
 
                 })
         );
+    }
+
+    public void onGetBalance(String contract, String account, String symbol){
+        getMvpView().showLoading( true );
+
+        addDisposable(
+                mDataManager.getCurrencyBalance( contract, account, symbol )
+//                        .doOnNext( balanceResult -> mDataManager.addAccountHistory( contract, account ))
+                        .subscribeOn( getSchedulerProvider().io())
+                        .observeOn( getSchedulerProvider().ui())
+                        .subscribeWith( new RxCallbackWrapper<String>( this){
+                            @Override
+                            public void onNext(String result) {
+
+                                if ( ! isViewAttached() ) return;
+
+                                getMvpView().showLoading( false );
+                                Log.d(TAG, "get balance string: "+result);
+
+//                                getMvpView().showResult( result, null);
+                                getMvpView().refreshListView(account, result);
+                            }
+                        })
+        );
+    }
+
+    public void putAccountsInfo(String names, String balances) {
+        Log.d(TAG, "putAccountsInfo: name " + names + " balance = " + balances);
+        mDataManager.getPreferenceHelper().putAccountsInfo(names, balances);
+    }
+
+    public PreferencesHelper getPreferenceHelper(){
+        return mDataManager.getPreferenceHelper();
     }
 }

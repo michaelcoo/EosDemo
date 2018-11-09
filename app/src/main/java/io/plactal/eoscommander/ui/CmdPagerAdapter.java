@@ -32,6 +32,7 @@ import android.view.ViewGroup;
 import io.plactal.eoscommander.ui.account.AccountMainFragment;
 import io.plactal.eoscommander.ui.base.BaseActivity;
 import io.plactal.eoscommander.ui.base.BaseFragment;
+import io.plactal.eoscommander.ui.buy.BuyFragment;
 import io.plactal.eoscommander.ui.currency.CurrencyFragment;
 import io.plactal.eoscommander.ui.gettable.GetTableFragment;
 import io.plactal.eoscommander.ui.push.PushFragment;
@@ -42,9 +43,10 @@ public class CmdPagerAdapter extends FragmentPagerAdapter {
     private static final int TAB_IDX_WALLET     = 0;
     private static final int TAB_IDX_ACCOUNT    = 1;
     private static final int TAB_IDX_TRANSFER   = 2;
-    private static final int TAB_IDX_CURRENCY   = 3;
-    private static final int TAB_IDX_PUSH       = 4;
+    private static final int TAB_IDX_CURRENCY   = 4;
+    private static final int TAB_IDX_PUSH       = 6;
     private static final int TAB_IDX_GET_TABLE  = 5;
+    private static final int TAB_IDX_BUY_TABLE  = 3;
 
     private int mTabCount;
 
@@ -106,6 +108,9 @@ public class CmdPagerAdapter extends FragmentPagerAdapter {
 
             case TAB_IDX_GET_TABLE:
                 fragment = GetTableFragment.newInstance(); break;
+
+            case TAB_IDX_BUY_TABLE:
+                fragment = BuyFragment.newInstance(); break;
 
             default:
                 return null;

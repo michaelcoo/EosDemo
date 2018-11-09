@@ -23,6 +23,8 @@
  */
 package io.plactal.eoscommander.data.remote.model.types;
 
+import android.util.Log;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -36,6 +38,7 @@ import io.plactal.eoscommander.util.StringUtils;
 public class TypeAsset implements EosType.Packer {
 
     public static final long MAX_AMOUNT = ( 1 << 62 ) - 1;
+    public static final String TAG = "yangtao";
 
     private long mAmount;
     private TypeSymbol mSymbol;
@@ -62,12 +65,13 @@ public class TypeAsset implements EosType.Packer {
     }
 
     public TypeAsset(long amount) {
-        this( amount, new TypeSymbol() );
+        this( amount, new TypeSymbol(0,"ACT") );
     }
 
     public TypeAsset( long amount, TypeSymbol symbol ){
         this.mAmount = amount;
         this.mSymbol = symbol ;
+        Log.d(TAG, "TypeAsset: amount = "+ amount + " " + "symbol = " + symbol);
     }
 
     public boolean isAmountInRange(){

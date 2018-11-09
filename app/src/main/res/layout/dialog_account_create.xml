@@ -50,6 +50,7 @@
                         android:padding="16dp"
                         android:nextFocusDown="@+id/et_code"
                         android:singleLine="true"
+                        android:visibility="gone"
                         android:hint="@string/creator_name"/>
                 </android.support.design.widget.TextInputLayout>
 
@@ -89,6 +90,7 @@
                         android:nextFocusDown="@+id/et_stake_cpu"
                         android:singleLine="true"
                         android:maxLines="1"
+                        android:visibility="gone"
                         android:hint="@string/stake_net"/>
                 </android.support.design.widget.TextInputLayout>
 
@@ -108,6 +110,7 @@
                         android:nextFocusDown="@+id/et_buy_ram_eos"
                         android:singleLine="true"
                         android:maxLines="1"
+                        android:visibility="gone"
                         android:hint="@string/stake_cpu"/>
                 </android.support.design.widget.TextInputLayout>
 
@@ -126,6 +129,7 @@
                         android:inputType="text"
                         android:singleLine="true"
                         android:maxLines="1"
+                        android:visibility="gone"
                         android:hint="@string/buy_ram_eos"/>
                 </android.support.design.widget.TextInputLayout>
 

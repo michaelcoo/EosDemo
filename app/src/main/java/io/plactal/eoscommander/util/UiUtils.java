@@ -33,7 +33,11 @@ import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.MultiAutoCompleteTextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import io.plactal.eoscommander.R;
+import io.plactal.eoscommander.ui.account.listview.AccountBalance;
 import io.plactal.eoscommander.ui.suggestion.AccountAdapter;
 import io.plactal.eoscommander.ui.suggestion.WhitSpaceTokenizer;
 
@@ -42,6 +46,8 @@ import io.plactal.eoscommander.ui.suggestion.WhitSpaceTokenizer;
  */
 
 public class UiUtils {
+
+    public static String mAccount;
 
     public static ProgressDialog showLoadingDialog(Context context) {
         ProgressDialog progressDialog = new ProgressDialog(context);
@@ -109,5 +115,15 @@ public class UiUtils {
             // Just take hex representation of string
             return Integer.toHexString(resId);
         }
+    }
+
+    public static void setAccountName(String name) {
+        mAccount = name;
+    }
+
+    public static String getAccountName() {
+        String a = mAccount;
+        mAccount = "";
+        return a;
     }
 }

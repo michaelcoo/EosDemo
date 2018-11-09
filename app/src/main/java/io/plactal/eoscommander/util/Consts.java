@@ -29,7 +29,7 @@ package io.plactal.eoscommander.util;
  */
 
 public final class Consts {
-    public static final boolean DEFAULT_SKIP_SIGNING = true;
+    public static final boolean DEFAULT_SKIP_SIGNING = false;
 
     public static final String DEFAULT_SERVANT_ACCOUNT = "eosio";
 
@@ -39,7 +39,7 @@ public final class Consts {
     public static final String SAMPLE_PRIV_KEY_FOR_TEST = "5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3";
 
     public static final String EOSIO_SYSTEM_ACCOUNT = "eosio";
-    public static final String EOSIO_TOKEN_CONTRACT = "eosio.token";
+    public static final String EOSIO_TOKEN_CONTRACT = "hoxhoxhoxhox";
     public static final int TX_EXPIRATION_IN_MILSEC = 30000;
 
     public static final String DEFAULT_SYMBOL_STRING = "SYS";

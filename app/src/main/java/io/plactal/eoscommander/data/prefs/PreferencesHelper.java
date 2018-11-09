@@ -26,6 +26,8 @@ package io.plactal.eoscommander.data.prefs;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.google.common.base.Strings;
+
 import java.io.File;
 import java.util.Arrays;
 import java.util.List;
@@ -34,6 +36,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import io.plactal.eoscommander.di.ApplicationContext;
+import io.plactal.eoscommander.ui.account.listview.AccountBalance;
 import io.plactal.eoscommander.util.Consts;
 import io.plactal.eoscommander.util.RefValue;
 import io.plactal.eoscommander.util.StringUtils;
@@ -61,6 +64,9 @@ public class PreferencesHelper {
 
     private static final String PREF_CORE_SYMBOL_STRING = "core.sym.str";
     private static final String PREF_CORE_SYMBOL_PRECISION = "core.sym.precision";
+
+    private static final String PREF_ACCOUNTS_NAME = "accounts.name";
+    private static final String PREF_ACCOUNTS_BALANCE = "accounts.balance";
 
     private final SharedPreferences mPrefs;
     private final File mWalletDirFile;
@@ -178,5 +184,22 @@ public class PreferencesHelper {
     public void putSkipSigning(boolean skipSigning ){
         mPrefs.edit().putBoolean(PREF_SKIP_SIGNING, skipSigning ).apply();
         mSkipSigning = skipSigning;
+    }
+
+    public void putAccountsInfo(String names, String balances) {
+        SharedPreferences.Editor editor = mPrefs.edit();
+
+        editor.putString(PREF_ACCOUNTS_NAME, names);
+        editor.putString(PREF_ACCOUNTS_BALANCE, balances);
+        editor.apply();
+    }
+
+    public AccountBalance getAccountsInfo() {
+        String names = mPrefs.getString(PREF_ACCOUNTS_NAME,"");
+        String balance = mPrefs.getString(PREF_ACCOUNTS_BALANCE,"");
+
+        if ("".equals(names)) return null;
+
+        return new AccountBalance(names, balance);
     }
 }

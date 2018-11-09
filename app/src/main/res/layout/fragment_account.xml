@@ -45,6 +45,7 @@
         android:background="@drawable/round_box_btn"
         android:textColor="@color/colorPrimary"
         android:textSize="16sp"
+        android:visibility="gone"
         android:text="@string/get_account"/>
 
     <io.plactal.eoscommander.ui.widget.TintVtDrTextView
@@ -60,6 +61,7 @@
         android:background="@drawable/round_box_btn"
         android:textColor="@color/colorPrimary"
         android:textSize="16sp"
+        android:visibility="gone"
         android:text="@string/get_actions"/>
 
     <io.plactal.eoscommander.ui.widget.TintVtDrTextView
@@ -75,6 +77,41 @@
         android:background="@drawable/round_box_btn"
         android:textColor="@color/colorPrimary"
         android:textSize="16sp"
+        android:visibility="gone"
         android:text="@string/get_servants"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
+            android:text="已添加账户："
+            android:textColor="@color/colorGray"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btn_refresh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="100dp"
+            android:text="更新数据" />
+
+    </LinearLayout>
+
+
+
+    <ListView
+        android:id="@+id/display_list_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>

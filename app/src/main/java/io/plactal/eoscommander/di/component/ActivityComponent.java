@@ -7,6 +7,7 @@ import io.plactal.eoscommander.di.module.ActivityModule;
 import io.plactal.eoscommander.ui.account.AccountMainFragment;
 import io.plactal.eoscommander.ui.account.create.CreateEosAccountDialog;
 import io.plactal.eoscommander.ui.account.info.InputAccountDialog;
+import io.plactal.eoscommander.ui.buy.BuyFragment;
 import io.plactal.eoscommander.ui.currency.CurrencyFragment;
 import io.plactal.eoscommander.ui.push.abiview.MsgInputActivity;
 import io.plactal.eoscommander.ui.settings.SettingsActivity;
@@ -43,4 +44,5 @@ public interface ActivityComponent {
     void inject(InputAccountDialog dialog);
 
     void inject(MsgInputActivity activity);
+    void inject(BuyFragment fragment);
 }

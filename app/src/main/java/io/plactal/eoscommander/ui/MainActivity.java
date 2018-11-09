@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -42,9 +43,10 @@ public class MainActivity extends BaseActivity {
         tabLayout.addTab(tabLayout.newTab().setText( R.string.wallet));
         tabLayout.addTab(tabLayout.newTab().setText( R.string.account ));
         tabLayout.addTab(tabLayout.newTab().setText( R.string.transfer ));
-        tabLayout.addTab(tabLayout.newTab().setText( R.string.currency ));
-        tabLayout.addTab(tabLayout.newTab().setText( R.string.push ));
-        tabLayout.addTab(tabLayout.newTab().setText( R.string.get_table));
+//        tabLayout.addTab(tabLayout.newTab().setText( R.string.push ));
+//        tabLayout.addTab(tabLayout.newTab().setText( R.string.get_table));
+        tabLayout.addTab(tabLayout.newTab().setText( R.string.buy_table));
+//        tabLayout.addTab(tabLayout.newTab().setText( R.string.currency ));
         tabLayout.setTabGravity(TabLayout.MODE_SCROLLABLE);
 
         mViewPager =findViewById(R.id.container);
@@ -82,6 +84,7 @@ public class MainActivity extends BaseActivity {
         mDataManager.clearAbiObjects();
 
         if (StringUtils.isEmpty( mDataManager.getPreferenceHelper().getNodeosConnInfo( null, null)) ) {
+            mDataManager.getPreferenceHelper().putNodeosConnInfo("http", "172.20.160.41",8001);
             openSettingsActivity();
         }
     }

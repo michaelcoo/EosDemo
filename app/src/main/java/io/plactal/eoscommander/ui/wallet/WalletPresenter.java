@@ -23,6 +23,7 @@
  */
 package io.plactal.eoscommander.ui.wallet;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import javax.inject.Inject;
@@ -69,9 +70,12 @@ public class WalletPresenter extends BasePresenter<WalletMvpView> {
     }
 
     public void onFinishedSetupView(){
-        getMvpView().showCreateDefaultWalletButton( ! mDataManager.getWalletManager().defaultWalletExists() );
+//        getMvpView().showCreateDefaultWalletButton( ! mDataManager.getWalletManager().defaultWalletExists() );
+        getMvpView().showCreateDefaultWalletButton( false );
 
         loadWallets();
+        File walletFile = new File( "/data/user/0/io.plactal.eoscommander/files/wallets", "default.wallet");
+        if (!walletFile.exists()) createDefaultWallet();
     }
 
     public void loadWallets() {
@@ -177,6 +181,8 @@ public class WalletPresenter extends BasePresenter<WalletMvpView> {
 
         mDataManager.getPreferenceHelper().putWalletPassword( walletName, password );
 
+//        importKey("default", "5HuQXXGKatXm5BvDHPy3rmzddA9Nxs5YQQqmfWvSe8FT7NZEB5m");
+//        importKey("default", "5Khx2JDXzkVFJi4turmq6Gj6TCcxBMdyDhXdQoiHbWTGg7hAKhA");
         loadWallets();
     }
 

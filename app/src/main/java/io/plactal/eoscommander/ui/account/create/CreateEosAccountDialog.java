@@ -23,6 +23,7 @@
  */
 package io.plactal.eoscommander.ui.account.create;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.AppCompatSpinner;
@@ -82,7 +83,6 @@ public class CreateEosAccountDialog extends BaseDialog implements CreateEosAccou
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-
         View view = inflater.inflate(R.layout.dialog_account_create, container, false);
 
         ActivityComponent component = getActivityComponent();
@@ -142,13 +142,19 @@ public class CreateEosAccountDialog extends BaseDialog implements CreateEosAccou
 
     private void onClickCreate() {
 
-        mPresenter.createAccountVerbose(mEtCreator.getText().toString()
-                , mEtNewAccount.getText().toString()
-                , mStake4Net.getText().toString()
-                , mStake4Cpu.getText().toString()
-                , mBuyRamInEOS.getText().toString()
-        );
+//        mPresenter.createAccountVerbose(mEtCreator.getText().toString()
+//                , mEtNewAccount.getText().toString()
+//                , mStake4Net.getText().toString()
+//                , mStake4Cpu.getText().toString()
+//                , mBuyRamInEOS.getText().toString()
+//        );
 
+        mPresenter.createAccountVerbose("hoxhoxcreate"
+                , mEtNewAccount.getText().toString()
+                , "50.0000 SYS"
+                , "50.0000 SYS"
+                , "50.0000 SYS"
+        );
     }
 
     @Override

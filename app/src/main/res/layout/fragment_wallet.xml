@@ -47,6 +47,7 @@
         android:background="@drawable/round_box_btn"
         android:textColor="@color/colorPrimary"
         android:textSize="16sp"
+        android:visibility="gone"
         android:text="@string/create_wallet"/>
 
     <io.plactal.eoscommander.ui.widget.TintVtDrTextView

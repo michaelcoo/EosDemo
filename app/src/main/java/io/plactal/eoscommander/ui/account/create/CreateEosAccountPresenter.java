@@ -23,6 +23,8 @@
  */
 package io.plactal.eoscommander.ui.account.create;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -39,6 +41,7 @@ import io.plactal.eoscommander.data.wallet.EosWallet;
 import io.plactal.eoscommander.ui.base.BasePresenter;
 import io.plactal.eoscommander.ui.base.RxCallbackWrapper;
 import io.plactal.eoscommander.util.StringUtils;
+import io.plactal.eoscommander.util.UiUtils;
 import io.plactal.eoscommander.util.Utils;
 import io.reactivex.Observable;
 
@@ -47,6 +50,9 @@ import io.reactivex.Observable;
  */
 
 public class CreateEosAccountPresenter extends BasePresenter<CreateEosAccountMvpView> {
+
+    public static final String TAG = "yangtao";
+
     @Inject
     EoscDataManager mDataManager;
 
@@ -200,7 +206,13 @@ public class CreateEosAccountPresenter extends BasePresenter<CreateEosAccountMvp
                                 getMvpView().showLoading( false );
 
                                 if ( ( null != result) && ! StringUtils.isEmpty( result.getTransactionId()) ) {
+                                    Log.d(TAG, "create account string before : " + result.toString());
                                     getMvpView().exitWithResult( true );
+                                    String string = Utils.prettyPrintJson(result );
+                                    Log.d(TAG, "create account string: " + string);
+                                    if (result.toString().contains("transaction")) {
+                                        UiUtils.setAccountName(newAccount);
+                                    }
                                     getMvpView().showResult(Utils.prettyPrintJson(result ), result.toString() );
                                 }
                                 else {

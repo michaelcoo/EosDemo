@@ -9,6 +9,7 @@
     <string name="transfer">Transfer</string>
     <string name="push">Push</string>
     <string name="get_table">Get table</string>
+    <string name="buy_table">Buy</string>
 
     <string name="nodeos_ip">nodeos host address</string>
     <string name="nodeos_port">Port</string>

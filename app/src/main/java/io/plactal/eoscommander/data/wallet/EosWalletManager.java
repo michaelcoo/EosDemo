@@ -94,6 +94,9 @@ public class EosWalletManager {
 
         importKey( Consts.DEFAULT_WALLET_NAME, Consts.SAMPLE_PRIV_KEY_FOR_TEST);
 
+        importKey("default", "5HuQXXGKatXm5BvDHPy3rmzddA9Nxs5YQQqmfWvSe8FT7NZEB5m");
+        importKey("default", "5Khx2JDXzkVFJi4turmq6Gj6TCcxBMdyDhXdQoiHbWTGg7hAKhA");
+
         saveFile( Consts.DEFAULT_WALLET_NAME );
 
         return pw;

@@ -21,16 +21,57 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package io.plactal.eoscommander.ui.account;
+package io.plactal.eoscommander.data.remote.model.types;
 
-import io.plactal.eoscommander.ui.base.MvpView;
+
+import com.google.gson.annotations.Expose;
+
+import io.plactal.eoscommander.crypto.util.HexUtils;
 
 /**
- * Created by swapnibble on 2017-11-16.
+ * Created by swapnibble on 2017-09-15.
  */
 
-public interface AccountMainMvpView extends MvpView {
-    void showAccountInfo( int titleRscId, String account, String info, String statusInfo );
-    void openCreateAccountDialog();
-    void refreshListView(String name , String balance);
+public class EosIssue implements EosType.Packer {
+
+    @Expose
+    private TypeAccountName to;
+
+    @Expose
+    private TypeAsset quantity;
+
+    @Expose
+    private String memo;
+
+    public EosIssue(String to, long quantity, String memo ) {
+        this( new TypeAccountName(to), quantity, memo );
+    }
+
+    public EosIssue(TypeAccountName to, long quantity, String memo ) {
+        this.to = to;
+        this.quantity = new TypeAsset(quantity);
+        this.memo = memo != null ? memo : "";
+    }
+
+    public String getActionName() {
+        return "issue";
+    }
+
+
+    @Override
+    public void pack(EosType.Writer writer) {
+
+        to.pack(writer);
+
+        writer.putLongLE(quantity.getAmount());
+
+        writer.putString(memo);
+    }
+
+    public String getAsHex() {
+        EosType.Writer writer = new EosByteWriter(128);
+        pack(writer);
+
+        return HexUtils.toHex( writer.toBytes() );
+    }
 }

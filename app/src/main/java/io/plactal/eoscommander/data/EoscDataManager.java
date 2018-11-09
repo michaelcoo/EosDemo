@@ -23,6 +23,8 @@
  */
 package io.plactal.eoscommander.data;
 
+import android.util.Log;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
@@ -52,6 +54,7 @@ import io.plactal.eoscommander.data.remote.model.api.PushTxnResponse;
 import io.plactal.eoscommander.data.remote.model.chain.Action;
 import io.plactal.eoscommander.data.remote.model.chain.PackedTransaction;
 import io.plactal.eoscommander.data.remote.model.chain.SignedTransaction;
+import io.plactal.eoscommander.data.remote.model.types.EosIssue;
 import io.plactal.eoscommander.data.remote.model.types.EosNewAccount;
 import io.plactal.eoscommander.data.remote.model.types.EosTransfer;
 import io.plactal.eoscommander.data.remote.model.types.TypeAccountName;
@@ -311,8 +314,17 @@ public class EoscDataManager {
 
         EosTransfer transfer = new EosTransfer(from, to, amount, memo);
 
+        Log.d(TypeAsset.TAG, "transfer: EOSIO_TOKEN_CONTRACT = " + EOSIO_TOKEN_CONTRACT);
+
         return pushActionRetJson(EOSIO_TOKEN_CONTRACT, transfer.getActionName(),Utils.prettyPrintJson(transfer) , getActivePermission( from ) ); //transfer.getAsHex()
     }
+
+//    public Observable<JsonObject> issue(String to, long amount, String memo ) {
+//
+//         EosIssue issue = new EosIssue( to, amount, memo);
+//
+//        return pushActionRetJson(EOSIO_TOKEN_CONTRACT, issue.getActionName(), Utils.prettyPrintJson(issue) , getActivePermission( "hoxhoxhoxhox" ) ); //issue.getAsHex()
+//    }
 
     public Observable<JsonObject> pushActionRetJson(String contract, String action, String data, String[] permissions) {
         return mNodeosApi.jsonToBin( new JsonToBinRequest( contract, action, data ))
