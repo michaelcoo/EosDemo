@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.List;
@@ -47,12 +48,43 @@ public class AccountAdapter extends ArrayAdapter {
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+        ViewHolder viewHolder = null;
         AccountBalance accountBalance = (AccountBalance) getItem(position);
-        View view = LayoutInflater.from(getContext()).inflate(resourceId, null);
-        TextView name = (TextView) view.findViewById(R.id.account_name);
-        TextView balance = (TextView) view.findViewById(R.id.account_balance);
-        name.setText(accountBalance.getName());
-        balance.setText(accountBalance.getBalance());
-        return view;
+        if (convertView == null) {
+            viewHolder = new ViewHolder();
+            convertView = LayoutInflater.from(getContext()).inflate(resourceId, null);
+            viewHolder.mName = (TextView) convertView.findViewById(R.id.account_name);
+            viewHolder.mBaleance = (TextView) convertView.findViewById(R.id.account_balance);
+            viewHolder.mReceipt = (Button) convertView.findViewById(R.id.receipt);
+            convertView.setTag(viewHolder);
+        } else {
+            viewHolder = (ViewHolder) convertView.getTag();
+        }
+        viewHolder.mName.setText(accountBalance.getName());
+        viewHolder.mBaleance.setText(accountBalance.getBalance());
+        viewHolder.mReceipt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mReceiptClickListener.onReceiptClick(position);
+            }
+        });
+        return convertView;
     }
+
+    public interface onReceiptClickListener {
+        void onReceiptClick(int i);
+    }
+
+    private onReceiptClickListener mReceiptClickListener;
+
+    public void setonReceiptClickListener (onReceiptClickListener receiptClickListener) {
+        this.mReceiptClickListener = receiptClickListener;
+    }
+
+    class ViewHolder {
+        TextView mName;
+        TextView mBaleance;
+        Button mReceipt;
+    }
+
 }

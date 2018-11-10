@@ -48,6 +48,8 @@ public class TransferFragment extends BaseFragment implements TransferMvpView{
 
     private View mRootView;
 
+    private AutoCompleteTextView etTo;
+
 
     public static TransferFragment newInstance() {
         TransferFragment fragment = new TransferFragment();
@@ -77,7 +79,7 @@ public class TransferFragment extends BaseFragment implements TransferMvpView{
 
         //  from, to, amount edit text
         AutoCompleteTextView etFrom = view.findViewById(R.id.et_from);
-        AutoCompleteTextView etTo = view.findViewById(R.id.et_to);
+        etTo = view.findViewById(R.id.et_to);
         EditText etAmount = view.findViewById(R.id.et_amount);
 
         // click handler
@@ -124,5 +126,10 @@ public class TransferFragment extends BaseFragment implements TransferMvpView{
     public void onDestroyView() {
         mPresenter.detachView();
         super.onDestroyView();
+    }
+
+    @Override
+    public void setSpecialData(String data) {
+        etTo.setText(data);
     }
 }

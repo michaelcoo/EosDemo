@@ -3,6 +3,8 @@ package io.plactal.eoscommander.app;
 import android.app.Application;
 import android.content.Context;
 
+import com.uuzuche.lib_zxing.activity.ZXingLibrary;
+
 import javax.inject.Inject;
 
 import io.plactal.eoscommander.BuildConfig;
@@ -28,6 +30,8 @@ public class EosCommanderApp extends Application {
 
         // https://android-developers.googleblog.com/2013/08/some-securerandom-thoughts.html
         PRNGFixes.apply();
+
+        ZXingLibrary.initDisplayOpinion(this);
 
         if (BuildConfig.DEBUG) {
             Timber.plant(new Timber.DebugTree());

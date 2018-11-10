@@ -26,6 +26,7 @@ package io.plactal.eoscommander.ui.account;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,6 +35,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +47,7 @@ import io.plactal.eoscommander.di.component.ActivityComponent;
 import io.plactal.eoscommander.ui.account.create.CreateEosAccountDialog;
 import io.plactal.eoscommander.ui.account.listview.AccountAdapter;
 import io.plactal.eoscommander.ui.account.listview.AccountBalance;
+import io.plactal.eoscommander.ui.result.ShowQRCodeDialog;
 import io.plactal.eoscommander.ui.result.ShowResultDialog;
 import io.plactal.eoscommander.ui.account.info.AccountInfoType;
 import io.plactal.eoscommander.ui.account.info.InputAccountDialog;
@@ -108,6 +111,18 @@ public class AccountMainFragment extends BaseFragment
         mRefresh.setOnClickListener(v -> onClickRefresh());
 
         mAccountAdapter = new AccountAdapter(getContext(), R.layout.fragment_account_list_item, accountBalanceList);
+        mAccountAdapter.setonReceiptClickListener(new AccountAdapter.onReceiptClickListener() {
+            @Override
+            public void onReceiptClick(int i) {
+                Log.d(TAG, "onReceiptClick: ......");
+                String name = accountBalanceList.get(i).getName();
+                if (TextUtils.isEmpty(name)) {
+                    Toast.makeText(getContext(), "获取账户名失败，没有值!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                showQRCodeDialog(name);
+            }
+        });
         mListView.setAdapter(mAccountAdapter);
 
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -218,6 +233,10 @@ public class AccountMainFragment extends BaseFragment
         InputAccountDialog.newInstance( infoType)
                 .setCallback( mPresenter::loadAccountInfo)
                 .show(getChildFragmentManager()) ;
+    }
+    
+    private void showQRCodeDialog(String name) {
+        ShowQRCodeDialog.newInstance(name).show(getChildFragmentManager());
     }
 
 

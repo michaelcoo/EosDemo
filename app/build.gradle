@@ -123,5 +123,7 @@ dependencies {
     // 구글 guava
     implementation 'com.google.guava:guava:23.0-android'
 
+    implementation 'cn.yipianfengye.android:zxing-library:2.2'
+
     testImplementation "junit:junit:${junitVer}"
 }

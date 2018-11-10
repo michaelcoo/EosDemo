@@ -152,4 +152,8 @@ public abstract class BaseFragment extends Fragment implements MvpView {
         }
     }
 
+    public void setSpecialData(String data) {
+
+    }
+
 }

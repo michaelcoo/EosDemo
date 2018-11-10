@@ -28,7 +28,7 @@
     <string name="account_info_title_fmt">%s: %s</string>
     <string name="create_account">Create account</string>
     <string name="creator_name">Creator name</string>
-    <string name="new_account_name">New account name</string>
+    <string name="new_account_name">账户名（12个字符）</string>
     <string name="owner_public_key">Owner public key</string>
     <string name="active_public_key">Active public key</string>
     <string name="create">Create</string>
