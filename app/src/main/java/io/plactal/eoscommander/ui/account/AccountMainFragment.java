@@ -63,6 +63,7 @@ public class AccountMainFragment extends BaseFragment
     public static final String TAG = "yangtao";
     private ListView mListView;
     private Button mRefresh;
+    private Button mInputAccount;
     private AccountAdapter mAccountAdapter;
 
     private List<AccountBalance> accountBalanceList = new ArrayList<AccountBalance>();
@@ -108,7 +109,9 @@ public class AccountMainFragment extends BaseFragment
 
         mListView = view.findViewById(R.id.display_list_view);
         mRefresh = view.findViewById(R.id.btn_refresh);
+        mInputAccount = view.findViewById(R.id.btn_input_account);
         mRefresh.setOnClickListener(v -> onClickRefresh());
+        mInputAccount.setOnClickListener(v -> openInputAccountDialog(AccountInfoType.ACCOUNTS));
 
         mAccountAdapter = new AccountAdapter(getContext(), R.layout.fragment_account_list_item, accountBalanceList);
         mAccountAdapter.setonReceiptClickListener(new AccountAdapter.onReceiptClickListener() {

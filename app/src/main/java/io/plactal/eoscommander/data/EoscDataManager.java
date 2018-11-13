@@ -251,6 +251,12 @@ public class EoscDataManager {
         return mNodeosApi.getServants( gsonObject);
     }
 
+    public Observable<JsonObject> getKeyAccounts(String key) {
+        JsonObject gsonObject = new JsonObject();
+        gsonObject.addProperty( NodeosApi.GET_KEY_ACCOUNTS, key);
+        return mNodeosApi.getKeyAccounts(gsonObject);
+    }
+
     EosChainInfo currentBlockInfo;
     void setInfo(EosChainInfo info){
         currentBlockInfo = info;

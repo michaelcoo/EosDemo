@@ -36,7 +36,8 @@ public enum AccountInfoType {
     REGISTRATION( R.string.get_account), // cleos get account <account>
     TRANSACTIONS(R.string.get_transactions), // cleos get transaction <account>
     SERVANTS(R.string.get_servants), // cleos get servants <account>
-    ACTIONS(R.string.get_actions);
+    ACTIONS(R.string.get_actions),
+    ACCOUNTS(R.string.get_key_accounts);
 
     private final int mTitleRscId;
 

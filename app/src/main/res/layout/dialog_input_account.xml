@@ -43,7 +43,6 @@
                     android:layout_marginStart="24dp"
                     android:layout_marginEnd="24dp"
                     android:inputType="textVisiblePassword"
-                    android:digits=".12345abcdefghijklmnopqrstuvwxyz"
                     android:padding="16dp"
                     android:singleLine="true"
                     android:hint="@string/input_account"/>

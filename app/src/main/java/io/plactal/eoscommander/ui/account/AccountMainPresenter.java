@@ -90,6 +90,10 @@ public class AccountMainPresenter extends BasePresenter<AccountMainMvpView> {
             case ACTIONS:
                 getActions( account, position, offset );
                 break;
+
+            case ACCOUNTS:
+                getKeyAccounts(account);
+                break;
         }
     }
 
@@ -194,6 +198,25 @@ public class AccountMainPresenter extends BasePresenter<AccountMainMvpView> {
 
                 })
         );
+    }
+
+    private void getKeyAccounts(String key) {
+        getMvpView().showLoading( true );
+        Log.d(TAG, "getKeyAccounts:  key = "+ key.toString());
+
+        addDisposable(mDataManager.getKeyAccounts(key)
+                .subscribeOn(getSchedulerProvider().io())
+                .observeOn(getSchedulerProvider().ui())
+                .subscribeWith(new RxCallbackWrapper<JsonObject>(this) {
+                    @Override
+                    public void onNext(JsonObject result) {
+                        if ( ! isViewAttached() ) return;
+
+                        getMvpView().showLoading( false );
+
+                        showResult( AccountInfoType.ACCOUNTS.getTitleId(), "", Utils.prettyPrintJson( result) );
+                    }
+                }));
     }
 
     public void onGetBalance(String contract, String account, String symbol){

@@ -60,6 +60,7 @@
     <string name="contract_code">Contract</string>
     <string name="table_name">"Table name :"</string>
     <string name="get_servants">Get servants</string>
+    <string name="get_key_accounts">Get Key Accounts</string>
 
     <string name="wallet_password">Wallet password</string>
     <string name="wallet_password_info">Save password to use in the future to unlock this wallet.\nWithout password keys will not be retrievable.</string>

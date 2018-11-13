@@ -45,6 +45,7 @@ import io.reactivex.Observable;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 /**
  * Created by swapnibble on 2017-09-08.
@@ -95,5 +96,10 @@ public interface NodeosApi {
     @POST("/v1/history/get_actions")
     Observable<JsonObject> getActions(@Body JsonObject body);
 
+
+    @POST("/v1/history/get_key_accounts")
+    Observable<JsonObject> getKeyAccounts(@Body JsonObject body);
+
     String GET_SERVANTS_KEY = "controlling_account";
+    String GET_KEY_ACCOUNTS = "public_key";
 }
